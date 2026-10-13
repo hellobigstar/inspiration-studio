@@ -20,7 +20,7 @@ class ConfigTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
         self.path = self.root / 'config.json'
 
     def write(self, **overrides):
@@ -78,7 +78,7 @@ class ServerTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
         config_path = self.root / 'config.json'
         config_path.write_text(json.dumps({'comfyui_dir': './ComfyUI', 'port': 8290}), encoding='utf-8')
         server.configure(load_config(config_path))
