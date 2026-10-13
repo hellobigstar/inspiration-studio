@@ -1,0 +1,662 @@
+{
+  "id": "f9e3ca38-a7a2-49bb-9731-2818c8b25897",
+  "revision": 0,
+  "last_node_id": 11,
+  "last_link_id": 13,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "title": "01 加载千问 2.1 Turbo",
+      "pos": [
+        40,
+        50
+      ],
+      "size": [
+        410,
+        92
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f",
+        "models": [
+          {
+            "name": "qwen_image_2.1_turbo_int8_convrot.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/diffusion_models/qwen_image_2.1_turbo_int8_convrot.safetensors",
+            "directory": "diffusion_models"
+          }
+        ]
+      },
+      "widgets_values": [
+        "qwen_image_2.1_turbo_int8_convrot.safetensors",
+        "default"
+      ],
+      "widgets_values_named": {
+        "unet_name": "qwen_image_2.1_turbo_int8_convrot.safetensors",
+        "weight_dtype": "default"
+      }
+    },
+    {
+      "id": 2,
+      "type": "CLIPLoader",
+      "title": "02 加载文字编码器",
+      "pos": [
+        40,
+        200
+      ],
+      "size": [
+        410,
+        122
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f",
+        "models": [
+          {
+            "name": "qwen3vl_8b_w4a8.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/text_encoders/qwen3vl_8b_w4a8.safetensors",
+            "directory": "text_encoders"
+          }
+        ]
+      },
+      "widgets_values": [
+        "qwen3vl_8b_w4a8.safetensors",
+        "qwen_image",
+        "default"
+      ],
+      "widgets_values_named": {
+        "clip_name": "qwen3vl_8b_w4a8.safetensors",
+        "type": "qwen_image",
+        "device": "default"
+      }
+    },
+    {
+      "id": 3,
+      "type": "VAELoader",
+      "title": "03 加载 RGBA VAE",
+      "pos": [
+        40,
+        385
+      ],
+      "size": [
+        410,
+        68
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            3,
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f",
+        "models": [
+          {
+            "name": "qwen_image_2.1_vae_bf16.safetensors",
+            "url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/vae/qwen_image_2.1_vae_bf16.safetensors",
+            "directory": "vae"
+          }
+        ]
+      },
+      "widgets_values": [
+        "qwen_image_2.1_vae_bf16.safetensors"
+      ],
+      "widgets_values_named": {
+        "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+      }
+    },
+    {
+      "id": 4,
+      "type": "QwenImage21Cache",
+      "title": "04 自动管理 KV 缓存",
+      "pos": [
+        510,
+        50
+      ],
+      "size": [
+        360,
+        92
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "QwenImage21Cache",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f"
+      },
+      "widgets_values": [
+        "auto",
+        "default"
+      ],
+      "widgets_values_named": {
+        "device": "auto",
+        "dtype": "default"
+      }
+    },
+    {
+      "id": 5,
+      "type": "TextEncodeQwenImage21",
+      "title": "05 提示词与 1024 方图",
+      "pos": [
+        510,
+        210
+      ],
+      "size": [
+        590,
+        575
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 2
+        },
+        {
+          "name": "images.image_1",
+          "type": "IMAGE",
+          "link": null,
+          "shape": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 3,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "links": [
+            5
+          ]
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": [
+            7
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeQwenImage21",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f"
+      },
+      "widgets_values": [
+        "一张明亮、年轻、有现代东方美感的创作海报，正方形构图。温暖的自然日光洒进手工工作室，浅米白色背景，浅木桌上放着一只手作青绿色陶碗、两把木质雕刻工具和少量整齐的陶土材料，陶碗的形状自然，釉面细腻，真实摄影质感，柔和阴影，构图干净，青绿色与暖橙色作为点缀。海报上半部有充足留白，清晰、准确、完整地排印两行中文：第一行大标题“千问生图”，第二行较小副标题“让灵感落地”。中文字笔画准确，字体为简洁有力的现代黑体，文字平直，没有重复字或多余文字。整幅画面明亮、温暖、自然，器物与文字比例协调。",
+        "",
+        1024
+      ],
+      "widgets_values_named": {
+        "prompt": "一张明亮、年轻、有现代东方美感的创作海报，正方形构图。温暖的自然日光洒进手工工作室，浅米白色背景，浅木桌上放着一只手作青绿色陶碗、两把木质雕刻工具和少量整齐的陶土材料，陶碗的形状自然，釉面细腻，真实摄影质感，柔和阴影，构图干净，青绿色与暖橙色作为点缀。海报上半部有充足留白，清晰、准确、完整地排印两行中文：第一行大标题“千问生图”，第二行较小副标题“让灵感落地”。中文字笔画准确，字体为简洁有力的现代黑体，文字平直，没有重复字或多余文字。整幅画面明亮、温暖、自然，器物与文字比例协调。",
+        "negative_prompt": "",
+        "resolution": 1024
+      }
+    },
+    {
+      "id": 6,
+      "type": "KSamplerSelect",
+      "title": "06 Euler 采样器",
+      "pos": [
+        510,
+        845
+      ],
+      "size": [
+        295,
+        68
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SAMPLER",
+          "type": "SAMPLER",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSamplerSelect",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f"
+      },
+      "widgets_values": [
+        "euler"
+      ],
+      "widgets_values_named": {
+        "sampler_name": "euler"
+      }
+    },
+    {
+      "id": 7,
+      "type": "ManualSigmas",
+      "title": "07 Turbo 官方 8 步",
+      "pos": [
+        40,
+        530
+      ],
+      "size": [
+        410,
+        105
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "SIGMAS",
+          "type": "SIGMAS",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ManualSigmas",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f"
+      },
+      "widgets_values": [
+        "1,0.978453,0.95418,0.926626,0.89508,0.845148,0.704534,0.414568,0"
+      ],
+      "widgets_values_named": {
+        "sigmas": "1,0.978453,0.95418,0.926626,0.89508,0.845148,0.704534,0.414568,0"
+      }
+    },
+    {
+      "id": 8,
+      "type": "SamplerCustom",
+      "title": "08 生成图像",
+      "pos": [
+        1180,
+        220
+      ],
+      "size": [
+        340,
+        330
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 4
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 5
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 6
+        },
+        {
+          "name": "sampler",
+          "type": "SAMPLER",
+          "link": 8
+        },
+        {
+          "name": "sigmas",
+          "type": "SIGMAS",
+          "link": 9
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "LATENT",
+          "links": [
+            10
+          ]
+        },
+        {
+          "name": "denoised_output",
+          "type": "LATENT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SamplerCustom",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f"
+      },
+      "widgets_values": [
+        true,
+        20261013,
+        "fixed",
+        1
+      ],
+      "widgets_values_named": {
+        "add_noise": true,
+        "noise_seed": 20261013,
+        "control_after_generate": "fixed",
+        "cfg": 1
+      }
+    },
+    {
+      "id": 9,
+      "type": "VAEDecode",
+      "title": "09 解码图像",
+      "pos": [
+        1590,
+        230
+      ],
+      "size": [
+        220,
+        78
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 10
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 11
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f"
+      },
+      "widgets_values": [],
+      "widgets_values_named": {}
+    },
+    {
+      "id": 10,
+      "type": "SaveImage",
+      "title": "10 保存 PNG",
+      "pos": [
+        1880,
+        230
+      ],
+      "size": [
+        440,
+        490
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveImage",
+        "cnr_id": "comfy-core",
+        "ver": "8010b48d2c1be986613f8e8c761527d205bd756f"
+      },
+      "widgets_values": [
+        "QwenImage21-Turbo/千问生图"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "QwenImage21-Turbo/千问生图"
+      }
+    },
+    {
+      "id": 11,
+      "type": "ModelAttentionBackend",
+      "pos": [
+        450,
+        -160
+      ],
+      "size": [
+        330,
+        90
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            13
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ModelAttentionBackend"
+      },
+      "widgets_values": [
+        "pytorch attention"
+      ],
+      "title": "显卡兼容模式 · PyTorch Attention"
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      11,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      2,
+      0,
+      5,
+      0,
+      "CLIP"
+    ],
+    [
+      3,
+      3,
+      0,
+      5,
+      2,
+      "VAE"
+    ],
+    [
+      4,
+      4,
+      0,
+      8,
+      0,
+      "MODEL"
+    ],
+    [
+      5,
+      5,
+      0,
+      8,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      6,
+      5,
+      1,
+      8,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      5,
+      2,
+      8,
+      5,
+      "LATENT"
+    ],
+    [
+      8,
+      6,
+      0,
+      8,
+      3,
+      "SAMPLER"
+    ],
+    [
+      9,
+      7,
+      0,
+      8,
+      4,
+      "SIGMAS"
+    ],
+    [
+      10,
+      8,
+      0,
+      9,
+      0,
+      "LATENT"
+    ],
+    [
+      11,
+      3,
+      0,
+      9,
+      1,
+      "VAE"
+    ],
+    [
+      12,
+      9,
+      0,
+      10,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      11,
+      0,
+      4,
+      0,
+      "MODEL"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7,
+      "offset": [
+        70,
+        70
+      ]
+    },
+    "frontendVersion": "1.55.14",
+    "workflowRendererVersion": "LG"
+  },
+  "version": 0.4
+}

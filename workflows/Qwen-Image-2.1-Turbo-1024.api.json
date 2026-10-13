@@ -1,0 +1,160 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen_image_2.1_turbo_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    },
+    "_meta": {
+      "title": "01 加载千问 2.1 Turbo"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_w4a8.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    },
+    "_meta": {
+      "title": "02 加载文字编码器"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    },
+    "_meta": {
+      "title": "03 加载 RGBA VAE"
+    }
+  },
+  "4": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "11",
+        0
+      ],
+      "device": "auto",
+      "dtype": "default"
+    },
+    "_meta": {
+      "title": "04 自动管理 KV 缓存"
+    }
+  },
+  "5": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "prompt": "一张明亮、年轻、有现代东方美感的创作海报，正方形构图。温暖的自然日光洒进手工工作室，浅米白色背景，浅木桌上放着一只手作青绿色陶碗、两把木质雕刻工具和少量整齐的陶土材料，陶碗的形状自然，釉面细腻，真实摄影质感，柔和阴影，构图干净，青绿色与暖橙色作为点缀。海报上半部有充足留白，清晰、准确、完整地排印两行中文：第一行大标题“千问生图”，第二行较小副标题“让灵感落地”。中文字笔画准确，字体为简洁有力的现代黑体，文字平直，没有重复字或多余文字。整幅画面明亮、温暖、自然，器物与文字比例协调。",
+      "negative_prompt": "",
+      "vae": [
+        "3",
+        0
+      ],
+      "resolution": 1024
+    },
+    "_meta": {
+      "title": "05 提示词与 1024 方图"
+    }
+  },
+  "6": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "_meta": {
+      "title": "06 Euler 采样器"
+    }
+  },
+  "7": {
+    "class_type": "ManualSigmas",
+    "inputs": {
+      "sigmas": "1,0.978453,0.95418,0.926626,0.89508,0.845148,0.704534,0.414568,0"
+    },
+    "_meta": {
+      "title": "07 Turbo 官方 8 步"
+    }
+  },
+  "8": {
+    "class_type": "SamplerCustom",
+    "inputs": {
+      "model": [
+        "4",
+        0
+      ],
+      "add_noise": true,
+      "noise_seed": 20261013,
+      "cfg": 1,
+      "positive": [
+        "5",
+        0
+      ],
+      "negative": [
+        "5",
+        1
+      ],
+      "sampler": [
+        "6",
+        0
+      ],
+      "sigmas": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "5",
+        2
+      ]
+    },
+    "_meta": {
+      "title": "08 生成图像"
+    }
+  },
+  "9": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "8",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "_meta": {
+      "title": "09 解码图像"
+    }
+  },
+  "10": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "9",
+        0
+      ],
+      "filename_prefix": "QwenImage21-Turbo/千问生图"
+    },
+    "_meta": {
+      "title": "10 保存 PNG"
+    }
+  },
+  "11": {
+    "class_type": "ModelAttentionBackend",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "attention": "pytorch attention"
+    },
+    "_meta": {
+      "title": "显卡兼容模式 · PyTorch Attention"
+    }
+  }
+}

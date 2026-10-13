@@ -1,0 +1,7 @@
+{
+  "comfyui_dir": "../ComfyUI",
+  "backend_url": "http://127.0.0.1:8189",
+  "port": 8190,
+  "data_dir": "./data",
+  "max_upload_mb": 20
+}

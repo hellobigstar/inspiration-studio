@@ -1,0 +1,2 @@
+# Only the studio dependency. Install ComfyUI/PyTorch in their own environment.
+Pillow==12.2.0

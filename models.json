@@ -1,0 +1,23 @@
+{
+  "source": "Comfy-Org/Qwen-Image-2.1",
+  "core_commit": "8010b48d2c1be986613f8e8c761527d205bd756f",
+  "files": [
+    {
+      "path": "diffusion_models/qwen_image_2.1_turbo_int8_convrot.safetensors",
+      "bytes": 7256787829,
+      "sha256": "8144a0182964aa8403ad6dbc011db837304167d235161b9aabaa8532e967314c"
+    },
+    {
+      "path": "text_encoders/qwen3vl_8b_w4a8.safetensors",
+      "bytes": 6312105364,
+      "sha256": "7754425e55e7bea2bfde4dde59a4cc236cb44e5ee9c215ea66ef8d47012824eb"
+    },
+    {
+      "path": "vae/qwen_image_2.1_vae_bf16.safetensors",
+      "bytes": 675509688,
+      "sha256": "bb21f7473051e1ac368515dd3f2e15cd44d7a11748ee8823e1ddca3e4876b7c9"
+    }
+  ],
+  "source_revision": "main",
+  "license_url": "https://huggingface.co/Qwen/Qwen-Image-2.1-Turbo/blob/main/LICENSE"
+}

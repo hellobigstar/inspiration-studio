@@ -1,0 +1,13 @@
+Inspiration Studio is an independent local interface, not an official Qwen product.
+The MIT license covers the original interface, service, scripts and documentation
+in this repository. Model weights, ComfyUI and PyTorch are not bundled.
+
+Qwen-Image-2.1-Turbo is provided separately under the Qwen Research License:
+https://huggingface.co/Qwen/Qwen-Image-2.1-Turbo/blob/main/LICENSE
+Qwen is licensed under the Qwen RESEARCH LICENSE AGREEMENT, Copyright (c) 2026
+Hangzhou Tongyi Laboratory Technology Co., Ltd. All Rights Reserved.
+
+ComfyUI: https://github.com/Comfy-Org/ComfyUI (GPL-3.0)
+Pillow: https://github.com/python-pillow/Pillow (MIT-CMU)
+The hand-authored workflow configurations refer to public ComfyUI node APIs.
+The model license is not replaced or relaxed by this repository's MIT license.
